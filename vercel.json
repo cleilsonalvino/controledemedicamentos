@@ -2,12 +2,10 @@
     "version": 2,
     "builds": [
       {
-        "src": "package.json",
+        "src": "src/index.js",
         "use": "@vercel/node"
       }
-    ],
-    "scripts": {
-      "build": "npm run build"
-    }
+    ]
   }
+  
   
