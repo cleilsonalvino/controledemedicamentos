@@ -15,4 +15,4 @@ async function syncDatabase() {
     // .catch(console.error);
 }
 
-syncDatabase();
+// syncDatabase();

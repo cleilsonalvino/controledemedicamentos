@@ -67,50 +67,62 @@ app.post('/edit-medication', async (req, res) => {
     }
 });
 
-// Função para atualizar a quantidade dos medicamentos
 const atualizarMedicamentos = async () => {
-    // Obtém a data atual
     const hoje = new Date().toISOString().slice(0, 10); // Formato YYYY-MM-DD
     const agora = new Date();
     const horaAtual = agora.toTimeString().slice(0, 8); // Formato HH:MM:SS
 
-    // Verifica se a atualização foi feita hoje
-    const ultimaAtualizacao = await Medicamento.findOne({
-        attributes: ['ultima_atualizacao'],
-        where: {
-            ultima_atualizacao: {
-                [Op.gte]: hoje
+    try {
+        // Busca todos os medicamentos
+        const medicamentos = await Medicamento.findAll();
+
+        for (const medicamento of medicamentos) {
+            // Verifica se `ultima_atualizacao` é válido
+            let ultimaAtualizacaoStr = '';
+            if (medicamento.ultima_atualizacao) {
+                const ultimaAtualizacaoDate = new Date(medicamento.ultima_atualizacao);
+                if (!isNaN(ultimaAtualizacaoDate.getTime())) { // Verifica se a data é válida
+                    ultimaAtualizacaoStr = ultimaAtualizacaoDate.toISOString().slice(0, 10);
+                }
+            }
+
+            // Garantindo que `hora` é uma string no formato HH:MM:SS
+            const horaMedicamento = medicamento.hora?.toString() || ''; // Convertendo para string
+
+            // Verifica se o medicamento foi atualizado hoje
+            if (ultimaAtualizacaoStr === hoje) {
+                console.log(`Atualização já realizada hoje para o medicamento ${medicamento.nome}.`);
+                continue;
+            }
+
+            // Verifica se já é hora de administrar o medicamento
+            if (horaMedicamento <= horaAtual && medicamento.quantidade > 0) {
+                await Medicamento.update(
+                    {
+                        quantidade: Sequelize.literal('quantidade - 1'),
+                        ultima_atualizacao: hoje
+                    },
+                    { where: { id_medicamentos: medicamento.id_medicamentos } }
+                );
+
+                console.log(`Quantidade do medicamento ${medicamento.nome} atualizada.`);
             }
         }
-    });
 
-    if (ultimaAtualizacao) {
-        console.log('Atualização já realizada hoje.');
-        return;
+        console.log('Atualização concluída.');
+    } catch (error) {
+        console.error('Erro ao atualizar medicamentos:', error);
     }
-
-    // Atualiza a quantidade dos medicamentos
-    const medicamentos = await Medicamento.findAll();
-
-    for (const medicamento of medicamentos) {
-        if (medicamento.hora <= horaAtual && medicamento.quantidade > 0) {
-            // Diminuir a quantidade
-            await Medicamento.update(
-                { quantidade: Sequelize.literal('quantidade - 1') },
-                { where: { id_medicamentos: medicamento.id_medicamentos } }
-            );
-        }
-    }
-
-    // Atualiza a data da última atualização
-    await Medicamento.update(
-        { ultima_atualizacao: hoje },
-        { where: {} } // Atualiza a todos os registros
-    );
 };
 
-// Exemplo de uso
+// Chama a função imediatamente ao iniciar o servidor
 atualizarMedicamentos().catch(console.error);
+
+// Define o intervalo para chamar a função a cada uma hora (3600000 ms)
+setInterval(async () => {
+    await atualizarMedicamentos().catch(console.error);
+}, 3600000); // 1 hora em milissegundos
+
 
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);

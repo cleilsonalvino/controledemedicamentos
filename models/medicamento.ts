@@ -4,9 +4,9 @@ import sequelize from './db';
 class Medicamento extends Model {
     public id_medicamentos!: number;
     public nome!: string;
-    public hora!: string;
+    public hora!: string; // Usar string para hora
     public quantidade!: number;
-    public ultima_atualizacao!: string; // Adicionado para controle de atualização diária
+    public ultima_atualizacao!: Date;
 }
 
 Medicamento.init({
@@ -20,7 +20,7 @@ Medicamento.init({
         allowNull: false,
     },
     hora: {
-        type: DataTypes.STRING,
+        type: DataTypes.TIME, // Usar STRING para hora no formato HH:MM:SS
         allowNull: false,
     },
     quantidade: {
@@ -28,7 +28,7 @@ Medicamento.init({
         allowNull: false,
     },
     ultima_atualizacao: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: true,
     }
 }, {
