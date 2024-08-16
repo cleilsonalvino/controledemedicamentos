@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Medicamentos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Gerenciador de Medicamentos</h1>
+    
+    <table id="medTable">
+        <thead>
+            <tr>
+                <th>Medicamento</th>
+                <th>Horário</th>
+                <th>Quantidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dados serão inseridos aqui -->
+        </tbody>
+    </table>
+    
+    <h2>Adicionar Novo Medicamento</h2>
+    <form id="medForm">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" required>
+        
+        <label for="time">Horário:</label>
+        <input type="time" id="time" required>
+        
+        <label for="quantity">Quantidade:</label>
+        <input type="number" id="quantity" min="1" required>
+        
+        <button type="submit">Adicionar Medicamento</button>
+    </form>
+
+    <h2>Excluir Medicamento</h2>
+    <form id="removeForm">
+        <label for="selectMed">Escolha um medicamento para excluir:</label>
+        <select id="selectMed" required>
+            <option value="" disabled selected>Selecione...</option>
+        </select>
+        <button type="submit">Excluir Medicamento</button>
+    </form>
+
+    <h2>Editar Medicamento</h2>
+    <form id="editForm">
+        <label for="editSelectMed">Escolha um medicamento para editar:</label>
+        <select id="editSelectMed" required>
+            <option value="" disabled selected>Selecione...</option>
+        </select>
+        
+        <label for="editTime">Novo Horário:</label>
+        <input type="time" id="editTime" required>
+        
+        <label for="editQuantity">Nova Quantidade:</label>
+        <input type="number" id="editQuantity" min="1" required>
+        
+        <button type="submit">Salvar Alterações</button>
+    </form>
+
+    <script src="script.js"></script>
+</body>
+</html>
