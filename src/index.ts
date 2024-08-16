@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 });
 
 // Endpoint para obter todos os medicamentos
-app.get('/get-medications', async (req, res) => {
+app.get('/api/get-medications', async (req, res) => {
     try {
         // Ordenar medicamentos pelo horário (do mais cedo para o mais tarde)
         const medications = await Medicamento.findAll({
@@ -32,7 +32,7 @@ app.get('/get-medications', async (req, res) => {
 });
 
 // Endpoint para adicionar um medicamento
-app.post('/add-medication', async (req, res) => {
+app.post('/api/add-medication', async (req, res) => {
     try {
         const { nome, hora, quantidade } = req.body;
         await Medicamento.create({ nome, hora, quantidade });
@@ -44,7 +44,7 @@ app.post('/add-medication', async (req, res) => {
 });
 
 // Endpoint para excluir um medicamento
-app.post('/remove-medication', async (req, res) => {
+app.post('/api/remove-medication', async (req, res) => {
     try {
         const { id } = req.body;
         await Medicamento.destroy({ where: { id_medicamentos: id } });
@@ -56,7 +56,7 @@ app.post('/remove-medication', async (req, res) => {
 });
 
 // Endpoint para editar um medicamento
-app.post('/edit-medication', async (req, res) => {
+app.post('/api/edit-medication', async (req, res) => {
     try {
         const { id, hora, quantidade } = req.body;
         await Medicamento.update({ hora, quantidade }, { where: { id_medicamentos: id } });
