@@ -4,7 +4,7 @@
   "description": "este é um contole para os medicamentos da minha mae, criado com ajuda do chatGPT",
   "maiddn": "index.js",
   "scripts": {
-    "build": "npx tsc",
+    "builddd": "npx tsc",
     "dev": "nodemon",
     "startssss": "node ./dist/src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
