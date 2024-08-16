@@ -10,12 +10,12 @@ const port = 3000;
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../public')));
+//app.use(express.static(path.join(__dirname, '../public')));
 
 // Rota para renderizar a página principal
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public', 'index.html'));
-});
+//app.get('/', (req, res) => {
+//    res.sendFile(path.join(__dirname, '../public', 'index.html'));
+//});
 
 // Endpoint para obter todos os medicamentos
 app.get('/api/get-medications', async (req, res) => {
