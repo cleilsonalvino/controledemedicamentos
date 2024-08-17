@@ -124,6 +124,8 @@ setInterval(async () => {
 }, 3600000); // 1 hora em milissegundos
 
 
-app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
-});
+//app.listen(port, () => {
+//    console.log(`Servidor rodando em http://localhost:${port}`);
+//});
+
+export default app;
