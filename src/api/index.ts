@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import { Sequelize, Op } from 'sequelize';
-import Medicamento from '../models/medicamento'; // Importe seu modelo
+import Medicamento from '../../models/medicamento'; // Importe seu modelo
 
 const app = express();
 const port = 3000;
