@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para carregar medicamentos na tabela e opções de seleção
     const loadMedications = async () => {
         try {
-            const response = await fetch('/api/get-medications');
+            const response = await fetch('/get-medications');
             const medications = await response.json();
 
             // Limpar a tabela e opções de seleção
