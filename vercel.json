@@ -2,29 +2,29 @@
 	"version": 2,
 	"builds": [
 		{
-			"src": "src/index.ts",
+			"src": "/src/index.ts",
 			"use": "@vercel/node",
 			"config": {
-				"distDir": "dist"
+				"distDir": "/dist"
 			}
 		}
 	],
 	"routes": [
 		{
 			"src": "/get-medications",
-			"dest": "/dist/index.js"
+			"dest": "/dist/src/index.js"
 		},
 		{
 			"src": "/add-medication",
-			"dest": "/dist/index.js"
+			"dest": "/dist/src/index.js"
 		},
 		{
 			"src": "/remove-medication",
-			"dest": "/dist/index.js"
+			"dest": "/dist/src/index.js"
 		},
 		{
 			"src": "/edit-medication",
-			"dest": "/dist/index.js"
+			"dest": "/dist/src/index.js"
 		}
 	]
 }
