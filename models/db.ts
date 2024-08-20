@@ -1,4 +1,6 @@
 import { Sequelize } from 'sequelize';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 
 // const sequelize = new Sequelize('sql10726424', 'sql10726424', 'L3iceNTDiF', {
