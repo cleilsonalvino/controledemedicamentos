@@ -1,6 +1,5 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-    const ultimaAtualizacao = document.getElementById('ultima_atualizacao')
     const medForm = document.getElementById('medForm');
     const removeForm = document.getElementById('removeForm');
     const editForm = document.getElementById('editForm');
@@ -11,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para carregar medicamentos na tabela e opções de seleção
     const loadMedications = async () => {
         try {
-            ultimaAtualizacao.innerHTML = `Ultima atualização: ` + `${new Date().getDate()}/` + `${new Date().getMonth()}/` + `${new Date().getFullYear()} às ` + `${new Date().getHours()}:` + `${new Date().getMinutes()}` 
 
             const response = await fetch('/get-medications');
             const medications = await response.json();
