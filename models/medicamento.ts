@@ -7,6 +7,15 @@ class Medicamento extends Model {
     public hora!: string; // Usar string para hora
     public quantidade!: number;
     public ultima_atualizacao!: Date;
+
+    public diminuirDois(): void {
+        if (this.quantidade >= 2) {
+            this.quantidade -= 2;
+            this.save(); // Salva a mudança no banco de dados
+        } else {
+            throw new Error('Quantidade insuficiente para subtrair 2 unidades');
+        }
+    }
 }
 
 Medicamento.init({

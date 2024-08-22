@@ -35,9 +35,12 @@ app.get('/get-medications', async (req, res) => {
 
 // Endpoint para adicionar um medicamento
 app.post('/add-medication', async (req, res) => {
-    try {
-        const { nome, hora, quantidade } = req.body;
-        await Medicamento.create({ nome, hora, quantidade });
+    try 
+    {
+        const hoje = new Date().toISOString().slice(0, 10); // Formato YYYY-MM-DD
+
+        const { nome, hora, quantidade, ultima_atualizacao} = req.body;
+        await Medicamento.create({ nome, hora, quantidade, ultima_atualizacao: hoje });
         res.status(201).send('Medicamento adicionado com sucesso');
     } catch (error) {
         console.error('Erro ao adicionar medicamento:', error);
@@ -97,8 +100,32 @@ const atualizarMedicamentos = async () => {
                 continue;
             }
 
-            // Verifica se já é hora de administrar o medicamento
-            if (horaMedicamento <= horaAtual && medicamento.quantidade > 0) {
+            // Verifica se o medicamento tem o ID 5 é hora de administrá-lo
+            if (medicamento.id_medicamentos === 5 && horaMedicamento <= horaAtual && medicamento.quantidade > 0) {
+                const novaQuantidade = medicamento.diminuirDois();
+                await Medicamento.update(
+                    {
+                        quantidade: novaQuantidade,
+                        ultima_atualizacao: hoje
+                    },
+                    { where: { id_medicamentos: medicamento.id_medicamentos } }
+                );
+                console.log(`Quantidade do medicamento ${medicamento.nome} atualizada para ${novaQuantidade}.`);
+
+            // Verifica se o medicamento tem o ID 20 é hora de administrá-lo
+            } else if (medicamento.id_medicamentos === 20 && horaMedicamento <= horaAtual && medicamento.quantidade > 0) {
+                const novaQuantidade = medicamento.diminuirDois();
+                await Medicamento.update(
+                    {
+                        quantidade: novaQuantidade,
+                        ultima_atualizacao: hoje
+                    },
+                    { where: { id_medicamentos: medicamento.id_medicamentos } }
+                );
+                console.log(`Quantidade do medicamento ${medicamento.nome} atualizada para ${novaQuantidade}.`);
+
+            //verifica os outros
+            } else if (horaMedicamento <= horaAtual && medicamento.quantidade > 0) {
                 await Medicamento.update(
                     {
                         quantidade: Sequelize.literal('quantidade - 1'),
@@ -106,9 +133,8 @@ const atualizarMedicamentos = async () => {
                     },
                     { where: { id_medicamentos: medicamento.id_medicamentos } }
                 );
-
                 console.log(`Quantidade do medicamento ${medicamento.nome} atualizada.`);
-            }
+            } 
         }
 
         console.log('Atualização concluída.');
