@@ -33,7 +33,7 @@ app.get('/get-medications', async (req, res) => {
   const agoraBrasilia = new Date(agoraUTC.getTime() + diferencaMillis);
 
   // Formata a data e hora em uma string legível
-  console.log(agoraBrasilia.toISOString()); // Retorna a data e hora em formato ISO
+  console.log(agoraBrasilia.toTimeString().slice(0, 8)); // Retorna a data e hora em formato ISO
     try {
         // Ordenar medicamentos pelo horário (do mais cedo para o mais tarde)
         const medications = await Medicamento.findAll({
