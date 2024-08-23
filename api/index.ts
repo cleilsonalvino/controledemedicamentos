@@ -19,6 +19,9 @@ app.get('/', (req, res) => {
 
 // Endpoint para obter todos os medicamentos
 app.get('/get-medications', async (req, res) => {
+    const agora = new Date();
+    const horaAtual = agora.toTimeString().slice(0, 8); // Formato HH:MM:SS
+    console.log(horaAtual);
     try {
         // Ordenar medicamentos pelo horário (do mais cedo para o mais tarde)
         const medications = await Medicamento.findAll({
