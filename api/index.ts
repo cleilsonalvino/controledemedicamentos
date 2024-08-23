@@ -22,6 +22,18 @@ app.get('/get-medications', async (req, res) => {
     const agora = new Date();
     const horaAtual = agora.toTimeString().slice(0, 8); // Formato HH:MM:SS
     console.log(horaAtual);
+      // Obtém a data e hora atual em UTC
+  const agoraUTC = new Date();
+
+  // Calcula a diferença em milissegundos para GMT-3
+  const fusoHorarioBrasilia = -3; // Brasília está em GMT-3
+  const diferencaMillis = fusoHorarioBrasilia * 60 * 60 * 1000;
+
+  // Cria um novo objeto Date ajustado para o fuso horário de Brasília
+  const agoraBrasilia = new Date(agoraUTC.getTime() + diferencaMillis);
+
+  // Formata a data e hora em uma string legível
+  console.log(agoraBrasilia.toISOString()); // Retorna a data e hora em formato ISO
     try {
         // Ordenar medicamentos pelo horário (do mais cedo para o mais tarde)
         const medications = await Medicamento.findAll({
