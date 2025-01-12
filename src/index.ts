@@ -29,6 +29,8 @@ app.get('/get-medications', async (req, res) => {
         console.error('Erro ao obter medicamentos:', error);
         res.status(500).send('Erro ao obter medicamentos');
     }
+
+    atualizarMedicamentos().catch(console.error);
 });
 
 // Endpoint para adicionar um medicamento
@@ -114,15 +116,6 @@ const atualizarMedicamentos = async () => {
         console.error('Erro ao atualizar medicamentos:', error);
     }
 };
-
-// Chama a função imediatamente ao iniciar o servidor
-atualizarMedicamentos().catch(console.error);
-
-// Define o intervalo para chamar a função a cada uma hora (3600000 ms)
-setInterval(async () => {
-    await atualizarMedicamentos().catch(console.error);
-}, 3600000); // 1 hora em milissegundos
-
 
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
